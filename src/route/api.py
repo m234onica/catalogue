@@ -17,12 +17,3 @@ def utility_processor():
 def before_req():
   g.uuid = str(uuid1())
 
-@api.route('/', methods=['Get'])
-def index():
-  catalog = db_session.query(Catalogs).first()
-  if catalog == None:
-    print(catalog)
-    return "none"
-  else:
-    print(catalog)
-    return "hello"
