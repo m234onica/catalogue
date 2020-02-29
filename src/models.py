@@ -18,7 +18,7 @@ class Catalogs(Base):
                        server_default=func.now(), comment='建立時間')
     updatedAt = Column(DateTime, nullable=False,
                        server_default=func.now(), onupdate=func.now(), comment='更新時間')
-    fullname = Column(String(50), nullable=False, comment="評書人")
+    username = Column(String(50), nullable=False, comment="評書人")
     book = Column(String(100), nullable=False, comment='書名')
     author = Column(String(100), nullable=False, comment='作者')
     end_date = Column(Date, nullable=True, comment='完結日期')
@@ -31,7 +31,7 @@ class Catalogs(Base):
     author_link = Column(String(500), nullable=True, comment='作者連結')
 
     def __repr__(self):
-        return "<Catalogs: %r, %r, %r, %r>" % (self.id, self.book, self.author, self.createdAt)
+        return "<Catalogs: %r, %r, %r, %r, %r>" % (self.id, self.username, self.book, self.author, self.createdAt)
 
 
 class Comments(Base):
@@ -42,12 +42,12 @@ class Comments(Base):
                        server_default=func.now(), comment='建立時間')
     updatedAt = Column(DateTime, nullable=False,
                        server_default=func.now(), onupdate=func.now(), comment='更新時間')
-    fullname = Column(String(100), nullable=False, comment='留言者')
+    username = Column(String(50), nullable=False, comment='留言者')
     review = Column(DECIMAL(2, 1), comment='評分')
     content = Column(String(6000), comment='留言內容')
 
     def __repr__(self):
-        return "<Comments: %r, %r, %r, %r>" % (self.id, self.fullname, self.review, self.createdAt)
+        return "<Comments: %r, %r, %r, %r>" % (self.id, self.username, self.review, self.createdAt)
 
 
 class Tags(Base):
@@ -58,18 +58,24 @@ class Tags(Base):
                        server_default=func.now(), comment='建立時間')
     updatedAt = Column(DateTime, nullable=False,
                        server_default=func.now(), onupdate=func.now(), comment='更新時間')
+    username = Column(String(50), nullable=False, comment='留言者')
     content = Column(String(500), nullable=True)
 
     def __repr__(self):
-        return "<tags: %r, %r, %r>" % (self.tag_name, self.createdAt, self.content)
+        return "<tags: %r, %r, %r, %r>" % (self.username, self.name, self.createdAt, self.content)
 
 
-class User(UserMixin, Base):
+class Users(UserMixin, Base):
     __tablename__ = 'users'
     id = Column(Integer, nullable=False, primary_key=True, comment='主鍵')
-    username = Column(String(80), nullable=False, comment='帳號')
-    password = Column(String(120), nullable=False, unique=True, comment='密碼')
-    avatar_hash = Column(String(32))
-
+    createdAt = Column(DateTime, nullable=False,
+                       server_default=func.now(), comment='建立時間')
+    updatedAt = Column(DateTime, nullable=False,
+                       server_default=func.now(), onupdate=func.now(), comment='更新時間')
+    username = Column(String(80), unique=True, nullable=False, comment='帳號')
+    password = Column(String(120), nullable=False, comment='密碼')
+    email = Column(String(100), unique=True, nullable=False, comment='信箱')
+    fullname = Column(String(80), nullable=False, comment='本名')
+    
     def __repr__(self):
         return "<tags: %r, %r>" % (self.username, self.password)
