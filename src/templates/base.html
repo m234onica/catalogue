@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Catalogue</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="{{base_url}}/static/css/style.css">
+    <link rel="stylesheet" href="{{base_url}}/static/css/style.css?v={{version}}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
@@ -19,24 +19,36 @@
 </head>
 
 <body>
-    <div class="navbar-fixed ">
-        <nav class="z-depth-0">
-            <div class="nav-wrapper nav-fixed darken-1" style="  background-color: white;">
-                <ul>
-                    <a href="/home" class="brand-logo"><span class="black-text text-darken-2">Catalogue</span></a>
-                </ul>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="/logout"><i class="black-text material-icons ">account_circle</i></a></li>
-                </ul>
-                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            </div>
-        </nav>
+    {% block login %}{% endblock login %}
+    {% block register %}{% endblock register %}
+    {% if self.login() or self.register()%}
+    {% else %}
+    <div class="navbar-fixed">
+        <nav class="z-depth-0 nav-menu">
+            <ul>
+                <a href="/home" class="brand-logo"><span class="black-text text-darken-2">Catalogue</span></a>
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a href="/logout" class="collection-item valign-wrapper">
+                        <i class="black-text material-icons large">account_circle</i>&nbsp;
+                        <span class="black-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+            <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <div class="divider grey"></div>
+
     </div>
-    <ul id="slide-out" class="sidenav sidenav-fixed main-side" style="background-color: white">
+    </nav>
+    </div>
+    <ul id="slide-out" class="sidenav sidenav-fixed main-side z-depth-0" style="background-color: #eeeeee;">
         <li class="user-li">
             <div class="user-view">
+                {% if current_user.is_authenticated == False %}
+                <span class="black-text name">Hi, guest!</span> {% else %}
                 <span class="black-text name">{{ current_user.username }}</span>
-                <span class="black-text email">評書人</span>
+                <span class="black-text email">評書人</span> {% endif %}
             </div>
         </li>
         <li class="lone">
@@ -58,9 +70,8 @@
     </ul>
     <div class="main">
         {% block home %}{% endblock home %}
-        {% block login %}{% endblock login %}
-        {% block register %}{% endblock register %}
     </div>
+    {% endif %}
 </body>
 
 </html>
