@@ -18,40 +18,28 @@ def user_loader(id):
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/register', methods=['GET', 'POST'])
-def register():
+@auth.route('/register', methods=['GET'])
+def register_page():
+    form = RegisterForm(request.form)
     if current_user.is_authenticated:
         return redirect(url_for('blog.home'))
+    return render_template('register.html', form=form)
 
+
+@auth.route('/register', methods=['POST'])
+def register():
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(
             form.password.data).decode('utf-8')
 
         db_session.add(Users(fullname=form.fullname.data, username=form.username.data,
-                            email=form.email.data, password=hashed_password))
+                             email=form.email.data, password=hashed_password))
         db_session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
 
         return redirect(url_for('auth.login'))
-    else:
-        print('error:', form.errors)
-        return render_template('register.html', form=form)
-
-
-# @auth.route('/register', methods=['POST'])
-# def register():
-#     form = RegisterForm(request.form)
-#     if form.validate_on_submit():
-#         hashed_password = bcrypt.generate_password_hash(
-#             form.password.data).decode('utf-8')
-
-#         db_session.add(Users(username=form.username.data,
-#                             email=form.email.data, password=hashed_password))
-#         db_session.commit()
-#         flash('Your account has been created! You are now able to log in', 'success')
-#         return redirect(url_for('auth.login'))
-#     return render_template('register.html', form=form)
+    return render_template('register.html', form=form)
 
 
 @auth.route('/login', methods=['GET'])
