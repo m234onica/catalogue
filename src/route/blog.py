@@ -18,7 +18,7 @@ def home():
     content = content.replace('\n', '<br>')
     data = {
       "id": catalog.id,
-      "fullname": catalog.fullname,
+      "fullname": catalog.username,
       'author': catalog.author,
       "book": catalog.book,
       "intro": content
