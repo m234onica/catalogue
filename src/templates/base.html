@@ -2,62 +2,64 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <title>Catalogue</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="{{ setuuid('static/css/style.css') }}">
+    <meta charset="utf-8" />
+    <title>Catalogue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="{{base_url}}/static/css/style.css">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type=text/javascript src="{{base_url}}/static/js/ajax.js?v={{version}}"></script>
 
-  <script type=text/javascript src="{{ setuuid('static/js/ajax.js') }}"></script>
 </head>
 
 <body>
-  <div class="navbar-fixed ">
-    <nav class="z-depth-0">
-      <div class="nav-wrapper nav-fixed white darken-1">
-        <ul>
-          <a href="/home" class="brand-logo"><span class="black-text text-darken-2">Catalogue</span></a>
-        </ul>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="#!"><i class="black-text material-icons">account_circle</i></a></li>
-        </ul>
-        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      </div>
-    </nav>
-  </div>
-  <ul id="slide-out" class="sidenav sidenav-fixed main-side">
-    <li class="user-li">
-      <div class="user-view">
-        <span class="white-text name">Joycehsu</span>
-        <span class="white-text email">評書人</span>
-      </div>
-    </li>
-    <li class="lone">
-        <div class="nav-wrapper">
-          <form>
-            <div class="input-field col s12">
-              <input id="search" class="input-search" type="search" placeholder="search" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+    <div class="navbar-fixed ">
+        <nav class="z-depth-0">
+            <div class="nav-wrapper nav-fixed darken-1" style="  background-color: white;">
+                <ul>
+                    <a href="/home" class="brand-logo"><span class="black-text text-darken-2">Catalogue</span></a>
+                </ul>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#!"><i class="black-text material-icons ">account_circle</i></a></li>
+                </ul>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             </div>
-          </form>
-        </div>
-    </li>
-    <!-- 底線 -->
-    <li class="lone"><a href="/home">Home</a></li>
-    <div class="divider"></div>
-    <li class="lone"><a href="#!">First</a></li>
-    <li class="lone"><a href="#!">Second</a></li>
-  </ul>
-  <div class="main">
-    {% block home %}{% endblock home %}
-  </div>
+        </nav>
+    </div>
+    <ul id="slide-out" class="sidenav sidenav-fixed main-side" style="background-color: white">
+        <li class="user-li">
+            <div class="user-view">
+                <span class="black-text name">{{ current_user.username }}</span>
+                <span class="black-text email">評書人</span>
+            </div>
+        </li>
+        <li class="lone">
+            <div class="nav-wrapper">
+                <form>
+                    <div class="input-field col s12">
+                        <input id="search" class="input-search" type="search" placeholder="search" required>
+                        <label class="label-icon black-text" for="search"><i
+                                class="black-text material-icons">search</i></label>
+                        <!-- 底線 -->
+                        <div class="divider grey"></div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li class="lone"><a href="/home">Home</a></li>
+        <li class="lone"><a href="#!">First</a></li>
+        <li class="lone"><a href="#!">Second</a></li>
+    </ul>
+    <div class="main">
+        {% block home %}{% endblock home %}
+        {% block login %}{% endblock login %}
+    </div>
 </body>
 
 </html>
