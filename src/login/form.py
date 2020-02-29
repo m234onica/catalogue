@@ -34,7 +34,7 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[
                            DataRequired(message='username is empty.')])
-    password = StringField('Password', validators=[
+    password = PasswordField('Password', validators=[
                            DataRequired(message='password is wrong.')])
     remember = BooleanField('Remember me')
     submit = SubmitField('submit')
