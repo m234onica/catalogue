@@ -2,30 +2,29 @@
 {% block home %}
 {% for data in result %}
 <div class="card">
-  <div class="card-content">
-    <div class="line-bottom">
-      <span style="font-size: 1.5em;" class="black-text"> {{ data.book }}</span>
-      <span class="black-text">BY&nbsp;{{ data.author }}</span>
-    </div><br>
-    <p class="black-text">{{ data.intro|safe }}</p>
-  </div>
-  <div class="card-tabs">
-    <ul class="tabs">
-      <li class="tab"><a href="" class="blue-text"><i class="material-icons">exposure_plus_1</i> </a></li>
-      <li class="tab"><a href="" class="blue-text"><i class="material-icons">exposure_zero</i></a></li>
-      <li class="tab"><a href="" class="blue-text"><i class="material-icons">exposure_neg_1</i></a></li>
-    </ul>
-  </div>
-  <div class="card-content grey lighten-4">
-    <form action="#">
-      <a class="btn-floating btn-small waves-effect waves-light blue "><i class="material-icons">reply</i></a>
-      <div class="input-field">
-        <input id="icon_prefix{{data.id}}" type="text" class="validate" placeholder="&nbsp;來發表你的評論吧...">
-        <label for="icon_prefix{{data.id}}"></label>
-      </div>
-    </form>
-  </div>
+    <div class="card-content">
+        <div class="line-bottom">
+            <span style="font-size: 1.5em;" class="black-text"> {{ data.book }}</span>
+            <span class="black-text">BY&nbsp;{{ data.author }}</span>
+        </div><br>
+        <p class="black-text">{{ data.intro|safe }}</p>
+    </div>
+    <div class="card-tabs">
+        <ul class="tabs">
+            <li class="tab"><a href="" class="blue-text"><i class="material-icons">exposure_plus_1</i> </a></li>
+            <li class="tab"><a href="" class="blue-text"><i class="material-icons">exposure_zero</i></a></li>
+            <li class="tab"><a href="" class="blue-text"><i class="material-icons">exposure_neg_1</i></a></li>
+        </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+        <form action="#">
+            <a class="btn-floating btn-small waves-effect waves-light blue "><i class="material-icons">reply</i></a>
+            <div class="input-field">
+                <input id="icon_prefix{{data.id}}" type="text" class="validate" placeholder="&nbsp;來發表你的評論吧...">
+                <label for="icon_prefix{{data.id}}"></label>
+            </div>
+        </form>
+    </div>
 </div>
 {% endfor %}
-
 {% endblock home %}
