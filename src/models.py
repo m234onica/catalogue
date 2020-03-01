@@ -78,4 +78,4 @@ class Users(UserMixin, Base):
     fullname = Column(String(80), nullable=False, comment='本名')
     
     def __repr__(self):
-        return "<tags: %r, %r>" % (self.username, self.password)
+        return "<users: %r, %r>" % (self.fullname, self.username)

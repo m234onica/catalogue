@@ -53,7 +53,7 @@ VALUES(
 );
 
 INSERT INTO catalogs
-    (fullname, book, author, end_date, introduction, review, category, tag, progress, article_source, author_link)
+    (username), book, author, end_date, introduction, review, category, tag, progress, article_source, author_link)
 VALUES(
         "joychsu",
         "不要在垃圾桶裡撿男朋友",
