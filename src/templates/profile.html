@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block profile %}
+<div class="row">
+    <div class="col s12 m4 l2"></div>
+    <div class="col s12 m4 l8">
+        <div class="content-section" style="margin-top: 5%;">
+            <form method="POST" style="margin: 5%;">
+                <h5 class="center">Profile Page</h5>
+                <fieldset class="form-group white">
+                    <div class="input-field">
+                        <input id="username" type="text" class="validate" value="{{current_user.username}}">
+                        <label for="username">User Name</label>
+                    </div>
+
+                    <div class="input-field">
+                        <input id="fullname" type="text" class="validate" value="{{current_user.fullname}}">
+                        <label for="fullname">Full Name</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="email" type="email" class="validate" value="{{current_user.email}}">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="password" type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="input-field">
+                        <input id="confirm_password" type="password" class="validate">
+                        <label for="confirm_password">Confirm Password</label>
+                    </div>
+                </fieldset>
+                <div class="form-group center" style="margin-top: 20px;">
+                    <a class="waves-effect waves-light btn">Save</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock profile %}

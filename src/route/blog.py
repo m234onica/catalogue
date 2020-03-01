@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, jsonify, request, g, redirect, flash, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from src.db import init_db, db_session
-from src.models import Catalogs, Comments, Tags
+from src.models import Catalogs, Comments, Tags, Users
 
 blog = Blueprint('blog', __name__)
 init_db()
@@ -30,3 +30,8 @@ def home():
 def card():
   return render_template('card.html')
 
+@blog.route('/profile', methods=['GET'])
+@login_required
+def profile_page():
+    
+    return render_template('profile.html')
