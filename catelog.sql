@@ -1,8 +1,6 @@
 USE catalogueDB;
 CREATE TABLE catalogs(
     id                  INT                 NOT NULL    AUTO_INCREMENT,
-    createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
-    updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,           
     username            VARCHAR(50)         NOT NULL,
     book                VARCHAR(100)        NOT NULL,
     author              VARCHAR(100)        NOT NULL,
@@ -14,6 +12,9 @@ CREATE TABLE catalogs(
     progress            Enum("tbc", "extra", "end"),
     article_source      VARCHAR(500),
     author_link         VARCHAR(500),
+
+    createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
+    updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,           
     PRIMARY KEY( id )
 );
 
@@ -22,38 +23,61 @@ CREATE TABLE comments(
     username            VARCHAR(50)         NOT NULL,
     review              FLOAT(1),
     content             VARCHAR(6000)       NOT NULL,
+
     createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
     updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,      
     PRIMARY KEY( id )
 )
 
 CREATE TABLE tags(
+    id                  INT                 NOT NULL    AUTO_INCREMENT,
     name                VARCHAR(50)         NOT NULL,
-    createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
-    updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,   
     username            VARCHAR(50)         NOT NULL,   
     content             VARCHAR(500)        NOT NULL,
-    PRIMARY KEY( name )
+
+    createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
+    updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,   
+    PRIMARY KEY( id )
 );
+
+CREATE TABLE tags_catalogs(
+    id                  INT                 NOT NULL    AUTO_INCREMENT,
+    tags_id             INT                 NOT NULL,
+    catalogs_id         INT                 NOT NULL,
+
+    createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
+    updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,   
+    PRIMARY KEY( id )
+)
 
 CREATE TABLE users(
     id                  INT                 NOT NULL    AUTO_INCREMENT,
     username            VARCHAR(80)         NOT NULL,
     password            VARCHAR(120)        NOT NULL,
-    createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
-    updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,      
     email               VARCHAR(100)        NOT NULL,
     fullname            VARCHAR(80)         NOT NULL,
+
+    createdAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,
+    updatedAt           DATETIME        	NOT NULL    DEFAULT CURRENT_TIMESTAMP,      
     PRIMARY KEY( id )
 );
 
-INSERT INTO tags(name, content)
+INSERT INTO tags(username, name)
 VALUES(
-        "無限流", "《無限流》起源於小說《無限恐怖》的火爆，以及大量跟風小說的問世。 無限流意義應該是'包羅萬象'，即：包含無限的元素，包括科學、宗教、神話、傳說、歷史、現實、電影、動漫、遊戲等，並且高於它們，有這樣包含這一切的世界觀才是無限流小說的精華。"
+        "joycehsu", "系統"
 );
 
+INSERT INTO tags_catalogs(tag_id, catalog_id)VALUES("3", "4");
+
+INSERT INTO tags
+    (username, name)
+VALUES(
+        "joycehsu", "快穿"
+);
+
+
 INSERT INTO catalogs
-    (username), book, author, end_date, introduction, review, category, tag, progress, article_source, author_link)
+    (username, book, author, end_date, introduction, review, category, tag, progress, article_source, author_link)
 VALUES(
         "joychsu",
         "不要在垃圾桶裡撿男朋友",

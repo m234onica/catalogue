@@ -25,7 +25,6 @@ class Catalogs(Base):
     introduction = Column(String(1000), nullable=False, comment='簡介')
     review = Column(DECIMAL(2, 1), nullable=True, comment='評分')
     category = Column(String(50), nullable=True, comment='分類')
-    tag = Column(String(50), nullable=True, comment='標籤')
     progress = Column(Enum(progress_Enum), nullable=False, comment='連載或完結')
     article_source = Column(String(500), nullable=True, comment='文章連結')
     author_link = Column(String(500), nullable=True, comment='作者連結')
@@ -52,8 +51,8 @@ class Comments(Base):
 
 class Tags(Base):
     __tablename__ = 'tags'
-    name = Column(String(50), nullable=False,
-                  primary_key=True, comment='標籤名(主鍵)')
+    id = Column(Integer, nullable=False, primary_key=True, comment='主鍵')
+    name = Column(String(50), nullable=False, comment='標籤名(主鍵)')
     createdAt = Column(DateTime, nullable=False,
                        server_default=func.now(), comment='建立時間')
     updatedAt = Column(DateTime, nullable=False,
@@ -63,6 +62,20 @@ class Tags(Base):
 
     def __repr__(self):
         return "<tags: %r, %r, %r, %r>" % (self.username, self.name, self.createdAt, self.content)
+
+
+class Tags_Catalogs(Base):
+    __tablename__ = 'tags_catalogs'
+    id = Column(Integer, nullable=False, primary_key=True, comment='主鍵')
+    tag_id = Column(Integer, nullable=False, comment='標籤序號')
+    catalog_id = Column(Integer, nullable=False, comment='書籍序號')
+    createdAt = Column(DateTime, nullable=False,
+                       server_default=func.now(), comment='建立時間')
+    updatedAt = Column(DateTime, nullable=False,
+                       server_default=func.now(), onupdate=func.now(), comment='更新時間')
+
+    def __repr__(self):
+        return "<tags_catalogs: %r, %r>" % (self.tag_id, self.catalog_id)
 
 
 class Users(UserMixin, Base):
@@ -76,6 +89,6 @@ class Users(UserMixin, Base):
     password = Column(String(120), nullable=False, comment='密碼')
     email = Column(String(100), unique=True, nullable=False, comment='信箱')
     fullname = Column(String(80), nullable=False, comment='本名')
-    
+
     def __repr__(self):
         return "<users: %r, %r>" % (self.fullname, self.username)
